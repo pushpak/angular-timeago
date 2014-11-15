@@ -8,6 +8,7 @@ angular.module('yaru22.angular-timeago', [
     restrict: 'EA',
     link: function(scope, elem, attrs) {
       var fromTime;
+      var timeInGMT = attrs['localGmt'] || false;
 
       // Track the fromTime attribute
       attrs.$observe('fromTime', function (value) {
@@ -16,7 +17,7 @@ angular.module('yaru22.angular-timeago', [
 
       // Track changes to time difference
       scope.$watch(function () {
-        return nowTime() - fromTime;
+        return ((timeInGMT == true) ? nowTimeGMT() : nowTime()) - fromTime;
       }, function(value) {
         angular.element(elem).text(timeAgo.inWords(value));
       });
@@ -156,7 +157,8 @@ angular.module('yaru22.angular-timeago', [
 }).filter('timeAgo', ['nowTime', 'nowTimeGMT', 'timeAgo', function (nowTime, nowTimeGMT, timeAgo) {
   return function (value, nowGMT) {
     var fromTime = timeAgo.parse(value);
-    var diff = nowTime() - fromTime;
+    var timeInGMT = nowGMT || false;
+    var diff = ((timeInGMT == true) ? nowTimeGMT() : nowTime()) - fromTime;
     return timeAgo.inWords(diff);
   };
 }]);
