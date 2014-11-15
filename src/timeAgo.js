@@ -71,25 +71,7 @@ angular.module('yaru22.angular-timeago', [
         year: 'about a year',
         years: '%d years',
         numbers: []
-      },
-      'he_IL': {
-        prefixAgo: null,
-        prefixFromNow: null,
-        suffixAgo: 'לפני',
-        suffixFromNow: 'מעכשיו',
-        seconds: 'פחות מדקה',
-        minute: 'כדקה',
-        minutes: '%d דקות',
-        hour: 'כשעה',
-        hours: 'כ %d שעות',
-        day: 'יום',
-        days: '%d ימים',
-        month: 'כחודש',
-        months: '%d חודשים',
-        year: 'כשנה',
-        years: '%d שנים',
-        numbers: []
-      },
+      }
     }
   };
 
@@ -134,11 +116,7 @@ angular.module('yaru22.angular-timeago', [
         substitute($l.years, Math.round(years));
 
     var separator = $l.wordSeparator === undefined ?  ' ' : $l.wordSeparator;
-    if(lang === 'he_IL'){
-      return [prefix, suffix, words].join(separator).trim();
-    } else {
-      return [prefix, words, suffix].join(separator).trim();
-    }
+    return [prefix, words, suffix].join(separator).trim();
   };
 
   service.parse = function (iso8601) {
