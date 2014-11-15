@@ -34,7 +34,19 @@ angular.module('yaru22.angular-timeago', [
   return function() {
     return nowTime;
   };
-}).factory('timeAgo', function () {
+}]).factory('nowTimeGMT', ['$timeout', function ($timeout) {
+  var nowTimeGMT = (new Date()).getTime() - ((new Date()).getTimezoneOffset() * 60 * 1000);
+  var updateTime = function() {
+    $timeout(function() {
+      nowTimeGMT = (new Date()).getTime() - ((new Date()).getTimezoneOffset() * 60 * 1000);
+      updateTime();
+    }, 1000);
+  };
+  updateTime();
+  return function() {
+    return nowTimeGMT;
+  };
+}]).factory('timeAgo', function () {
   var service = {};
 
   service.settings = {
