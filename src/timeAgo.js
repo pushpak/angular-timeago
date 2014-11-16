@@ -1,7 +1,4 @@
 /* global angular */
-
-'use strict';
-
 angular.module('yaru22.angular-timeago', [
 ]).directive('timeAgo', ['timeAgo', 'nowTime', 'nowTimeGMT', function (timeAgo, nowTime, nowTimeGMT) {
   return {
